@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+        <style>
+            #canvas{
+                border:solid
+            }
+        </style>
+  </head>
+  <body>
+   <canvas id="canvas" height="500" width="500"></canvas>
+
+   <script>
+       setInterval(update, 20)
+       var posLeft = 0
+       var posTop = 0 
+       var upPressed = false
+       var downPressed = false
+       var leftPressed = false
+       var rightPressed = false
+       var speedTop = 0
+       var speedLeft = 0
+       var acceleration = 3
+    
+       function update(){
+           //draw box
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            posTop = posTop + speedTop
+            posLeft = posLeft + speedLeft
+            ctx.fillRect(posLeft, posTop, 50, 50)
+
+            if(downPressed){
+                speedTop = speedTop + acceleration
+            }
+            if(upPressed){
+                speedTop = speedTop - acceleration
+            }
+            if(leftPressed){
+                speedLeft = speedLeft - acceleration
+            }
+            if(rightPressed){
+                speedLeft = speedLeft + acceleration
+            }
+            if(speedTop > 10){
+                speedTop = 10
+            }
+             if(speedTop < -10){
+                speedTop = -10
+             }
+             if(speedLeft > 10){
+                speedLeft = 10
+             }
+             if(speedLeft < -10){
+                speedLeft = -10
+             }
+             if(posLeft > canvas.width - 50){
+                 posLeft = canvas.width -50
+             }
+             if(posLeft < 0){
+                 posLeft = 0
+             }
+             if(posTop > canvas.height - 50){
+                 posTop = canvas.height -50
+             }
+             if(posTop < 0){
+                 posTop = 0
+             }
+             if(speedTop > 0){
+                 speedTop = speedTop -1
+             }
+             if(speedTop < 0){
+                 speedTop = speedTop +1
+             }
+             if(speedLeft > 0){
+                 speedLeft = speedLeft -1
+             }
+             if(speedLeft < 0){
+                 speedLeft = speedLeft +1
+             }            
+       }
+       var canvas = document.getElementById("canvas");
+       var ctx = canvas.getContext("2d");
+       document.addEventListener("keydown", keydownHandler, false);
+        function keydownHandler(e) {
+            if(e.key === "ArrowUp"){
+                upPressed = true
+            }
+            if(e.key === "ArrowDown"){
+                downPressed = true  
+            }
+            if(e.key === "ArrowLeft"){
+                leftPressed = true
+            }
+            if(e.key === "ArrowRight"){
+                rightPressed = true
+            }
+        }
+       document.addEventListener("keyup", keyupHandler, false);
+         function keyupHandler(e) {
+            if(e.key === "ArrowUp"){
+                 upPressed = false
+            }
+            if(e.key === "ArrowDown"){
+                downPressed = false
+            }
+            if(e.key === "ArrowLeft"){
+                leftPressed = false
+            }
+            if(e.key === "ArrowRight"){
+                rightPressed = false
+            }
+
+        }
+        ctx.fillStyle = ("purple");
+       
+
+   </script>
+  </body>
+</html>
